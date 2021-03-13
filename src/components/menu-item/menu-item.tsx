@@ -6,7 +6,7 @@ import './menu-item.styles.scss'
 interface IMenuItem {
     title: string,
     imageUrl: string,
-    size: number,
+    size: string,
     history: {
         push: Function
     },

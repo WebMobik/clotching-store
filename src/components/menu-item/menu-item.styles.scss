@@ -1,5 +1,5 @@
 .menu-item {
-    min-width: 30%;
+    min-width: 31%;
     height: 240px;
     flex: 1 1 auto;
     display: flex;
@@ -23,6 +23,10 @@
   
     &.large {
         height: 380px;
+    }
+
+    &.small {
+        width: auto;
     }
   
     &:first-child {
@@ -64,5 +68,11 @@
             font-weight: lighter;
             font-size: 16px;
         }
+    }
+}
+
+@media screen and (min-width: 1009px) {
+    .menu-item .small {
+        height: 380px;
     }
 }

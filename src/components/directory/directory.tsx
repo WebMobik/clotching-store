@@ -8,18 +8,21 @@ const initialState = {
       {
         title: 'hats',
         imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+        size: 'small',
         id: 1,
         linkUrl: 'hats'
       },
       {
         title: 'jackets',
         imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+        size: 'small',
         id: 2,
         linkUrl: ''
       },
       {
         title: 'sneakers',
         imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
+        size: 'small',
         id: 3,
         linkUrl: ''
       },
@@ -40,7 +43,7 @@ const initialState = {
     ]
 }
 
-const Directory: React.FC = () => {
+const Directory = () => {
     return (
       <div className='directory-menu'>
         {initialState.sections.map(({ id, ...otherSectionProps }) => (

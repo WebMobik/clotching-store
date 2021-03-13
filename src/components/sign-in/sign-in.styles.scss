@@ -1,0 +1,25 @@
+.sign-in {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+
+        button {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.background-right-img {
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    width: 100%;
+    right: 0;
+    height: auto;
+    -webkit-mask-image: linear-gradient(to right bottom, transparent 59%, black 100%);
+    mask-image: linear-gradient(to bottom, transparent 25%, black 75%);
+}
