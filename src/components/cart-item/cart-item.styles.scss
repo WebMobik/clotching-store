@@ -1,0 +1,27 @@
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+    .item-content {
+        width: 100%;
+        padding-left: 10px;
+
+        span {
+            display: block;
+        }
+    }
+
+    .delete-item {
+        margin-top: -12px;
+        font-size: 22px;
+    }
+
+    .item-img {
+        width: 30%;
+    }
+
+    h4 {
+        margin-top: 0;
+    }
+}

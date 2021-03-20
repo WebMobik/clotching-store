@@ -1,0 +1,22 @@
+.shop-cart {
+    cursor: pointer;
+        
+    .cart-icon {
+        width: 25px;
+        height: 25px;
+        margin-bottom: 5px;
+        margin-left: 17px;
+    }
+
+    .product-number {
+        background-color: #000;
+        color: #fff;
+        border-radius: 50%;
+        padding: 0 5px;
+        position: relative;
+        left: -11px;
+        font-size: 12px;
+        text-align: center;
+        user-select: none;
+    }
+}

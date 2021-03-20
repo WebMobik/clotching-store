@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase'
 import { LINKS, LINKS_TEXT } from '../../config/constants';
+import CartIcon from '../cart-icon';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import './header.styles.scss'
 
 const Header = ({ currentUser }: any) => {
-
     return (
         <div className='header'>
            <Link to='/' className='logo-container'>
@@ -34,6 +34,7 @@ const Header = ({ currentUser }: any) => {
                         { LINKS_TEXT.SIGN_OUT }
                     </div>
                 )}
+                <CartIcon />
             </div>
         </div>
     )
