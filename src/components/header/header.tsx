@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../../firebase'
+import { LINKS, LINKS_TEXT } from '../../config/constants';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
-import { LINKS, LINKS_TEXT } from '../../config/constants';
 import './header.styles.scss'
 
-const Header = () => {
+const Header = ({ currentUser }: any) => {
 
     return (
         <div className='header'>
@@ -19,9 +20,20 @@ const Header = () => {
                 <Link to={ LINKS.CONTACT } className='option'>
                     { LINKS_TEXT.CONTACT }
                 </Link>
-                <Link to={ LINKS.SIGN_IN } className='option'>
-                    { LINKS_TEXT.SIGN_IN }
-                </Link>
+                { !currentUser.id ? (
+                    <>
+                        <Link to={ LINKS.SIGN_IN } className='option'>
+                            { LINKS_TEXT.SIGN_IN }
+                        </Link>
+                        <Link to={ LINKS.SIGN_UP } className='option'>
+                            { LINKS_TEXT.SIGN_UP }
+                        </Link>
+                    </>
+                ) : (
+                    <div className='option out' onClick={() => auth.signOut()}>
+                        { LINKS_TEXT.SIGN_OUT }
+                    </div>
+                )}
             </div>
         </div>
     )

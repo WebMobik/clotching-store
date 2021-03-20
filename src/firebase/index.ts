@@ -1,7 +1,15 @@
-import firebase, { signInWithGoogle, auth, firestore } from './firebase'
-export {
+import firebase, {
+    createUserProfileDocument,
     signInWithGoogle,
     auth,
+    session,
+    firestore
+} from './firebase'
+export {
+    createUserProfileDocument,
+    signInWithGoogle,
+    auth,
+    session,
     firestore 
 }
 export default firebase

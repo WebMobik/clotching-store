@@ -1,11 +1,11 @@
 import React, { SetStateAction, useState } from 'react'
-import { signInWithGoogle } from '../../firebase'
-import { BTN_SUBMIT, FORM_TYPE } from '../../config/constants'
+import { auth, session, signInWithGoogle } from '../../firebase'
+import { BTN_SUBMIT, FORM_TYPE, LINKS_TEXT } from '../../config/constants'
 import CustomButton from '../custom-button'
 import FormInput from '../form-input'
 
 import './sign-in.styles.scss'
-
+import { useHistory } from 'react-router'
 interface IHandleChange {
     target: {
         value: string,
@@ -15,20 +15,31 @@ interface IHandleChange {
 
 const initialState: SetStateAction<any> = {
     email: '',
-    password: ''
+    password: '',
+    success: false,
+    error: ''
 }
 
 const SignIn = () => {
-    const [styles, setStyles] = useState('')
+    const [loading, setLoading] = useState(false)
     const [values, setValues] = useState(initialState)
+    const history = useHistory()
 
     const handleChange: React.ChangeEventHandler<any> = ({ target: { value, name } }: IHandleChange) => {   
         setValues({ ...values, [name]: value });
     }
 
-    const handleSubmit = (e: { preventDefault: Function }) => {
+    const handleSubmit = async (e: { preventDefault: Function }) => {
         e.preventDefault()
-
+        setLoading(true)
+        try {
+            await auth.setPersistence(session)
+            await auth.signInWithEmailAndPassword(values.email, values.password)
+            history.push('/')
+        } catch (err) {
+            console.log(err.message)
+        }
+        setLoading(false)
         setValues(initialState)
     }
 
@@ -57,8 +68,11 @@ const SignIn = () => {
                     />
                     <div className='buttons'>
                         <CustomButton type={ BTN_SUBMIT }>
-                            Sign in
+                            { LINKS_TEXT.SIGN_IN }
                         </CustomButton>
+                        { loading && (
+                            <span>Загрузка...</span>
+                        ) }
                         <CustomButton onClick={ signInWithGoogle } isGoogleSignIn>
                             Sign in with Google
                         </CustomButton>
