@@ -27,9 +27,7 @@ const storeSlice = createSlice({
             const product = action.payload
             const findProduct = state.products.find(el => el.id === product.id)
             if (findProduct) {
-                const updateProduct = { ...findProduct, count: ++findProduct.count }
-                const changeProducts = state.products.filter(el => el.id !== product.id)
-                state.products = [ ...changeProducts, updateProduct ]
+                state.products.forEach(el => el.id === findProduct.id && ++el.count)
             } else {
                 state.products.push({ ...product, count: 1 })
             }
@@ -43,6 +41,10 @@ const storeSlice = createSlice({
             } else {
                 state.products = products.filter(el => el.id !== productId)
             }
+        },
+        removeCartItems: (state, action) => {
+            const id = action.payload
+            state.products = state.products.filter(el => el.id !== id)
         },
         removeAllCartItems: (state) => {
             state.products = []
@@ -59,6 +61,7 @@ const storeSlice = createSlice({
 export const {
     addItemToCart,
     removeCartItem,
+    removeCartItems,
     removeAllCartItems,
     showDropdownMenu,
     setAuthUser

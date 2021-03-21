@@ -35,14 +35,20 @@ const CartDropdown = () => {
                 <span>{ allPrice }$</span>
             </div>
             <ul className='cart-items'>
-                {
-                    cartItems.map((item) => (
-                        <CartItem
-                            key={ item.id }
-                            item={ item }
-                            removeItem={ handleRemoveCartItem }
-                        />
-                    ))
+                
+                { cartItems.length ? ( 
+                        cartItems.map((item) => (
+                            <CartItem
+                                key={ item.id }
+                                item={ item }
+                                removeItem={ handleRemoveCartItem }
+                            />
+                        ))
+                    ) : (
+                        <span className='empty-message'>
+                            Your cart is empty
+                        </span>
+                    )   
                 }
             </ul>
             <CustomButton onClick={ handleCheckItems }>

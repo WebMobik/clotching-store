@@ -32,6 +32,11 @@
         flex-direction: column;
         overflow-y: auto;
         overflow-x: hidden;
+
+        .empty-message {
+            margin-top: 20px;
+            text-align: center;
+        }
     }
   
     button {
