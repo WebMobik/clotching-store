@@ -11,6 +11,15 @@
     right: 40px;
     z-index: 5;
 
+    .cart-all_price {
+        display: flex;
+        justify-content: space-between;
+        
+        h3 {
+            margin: 0;
+        }
+    }
+
     ul {
         margin: 0;
         padding: 0;

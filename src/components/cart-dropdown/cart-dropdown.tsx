@@ -1,21 +1,39 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeCartItem, selectCartItem } from '../../redux/storeSlice'
+import { useHistory } from 'react-router'
+import {
+    removeCartItem,
+    selectAllPrice,
+    selectCartItems,
+    showDropdownMenu
+} from '../../redux/storeSlice'
 import CartItem from '../cart-item'
 import CustomButton from '../custom-button'
 
 import './cart-dropdown.styles.scss'
 
 const CartDropdown = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
-    const cartItems = useSelector(selectCartItem)
-    
+    const cartItems = useSelector(selectCartItems)
+    const allPrice = useSelector(selectAllPrice)
+
     const handleRemoveCartItem = (id: number) => {
         dispatch(removeCartItem(id))
     }
 
+    const handleCheckItems = (e: Event) => {
+        e.stopPropagation()
+        dispatch(showDropdownMenu())
+        history.push('/checkout')
+    }
+
     return (
         <div className='cart-dropdown'>
+            <div className="cart-all_price">
+                <h3>Price:</h3>
+                <span>{ allPrice }$</span>
+            </div>
             <ul className='cart-items'>
                 {
                     cartItems.map((item) => (
@@ -27,7 +45,9 @@ const CartDropdown = () => {
                     ))
                 }
             </ul>
-            <CustomButton>GO TO CHECKOUT</CustomButton>
+            <CustomButton onClick={ handleCheckItems }>
+                GO TO CHECKOUT
+            </CustomButton>
         </div>
     )
 }

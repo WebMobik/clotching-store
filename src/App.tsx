@@ -7,6 +7,7 @@ import SignIn from './components/sign-in';
 import SignUp from './components/sign-up';
 import Home from './pages/home';
 import Shop from './pages/shop';
+import Checkout from './pages/checkout';
 
 import firebase, { createUserProfileDocument, auth } from './firebase'
 import { configureStore } from '@reduxjs/toolkit';
@@ -15,7 +16,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
-    const unsubscribeForm = auth.onAuthStateChanged(async (userAuth: firebase.User | null) => {
+    const userRef = auth.onAuthStateChanged(async (userAuth: firebase.User | null) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
 
@@ -26,7 +27,7 @@ const App = () => {
       setCurrentUser({ currentUser: userAuth })
     })
 
-    return () => unsubscribeForm()
+    return () => userRef()
   }, [])
 
   const store = configureStore({ 
@@ -40,6 +41,7 @@ const App = () => {
         <Switch>
           <Route path='/' exact component={ Home } />
           <Route path='/shop' component={ Shop } />
+          <Route path='/checkout' component={ Checkout } />
           <Route path='/signin' component={ SignIn } />
           <Route path='/signup' component={ SignUp } />
         </Switch>

@@ -1,0 +1,32 @@
+.checkout-item {
+    border-bottom: 1px solid darkgrey;
+    font-size: 20px;
+  
+    .image-container {
+        img {
+            width: 100%;
+        }
+    }
+    .name,
+    .quantity,
+    .price {
+        width: 23%;
+    }
+
+    .name {
+        text-align: center;
+    }
+
+    .price, .quantity, .remove-button {
+        text-align: center;
+    }
+  
+    .quantity {
+        padding-left: 20px;
+    }
+  
+    .remove-button {
+        padding-left: 12px;
+        cursor: pointer;
+    }
+}

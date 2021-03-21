@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { createSelector } from 'reselect'
 
 type product = {
     id: number,
@@ -9,15 +10,13 @@ type product = {
 interface IInitialState {
     products: Array<product>,
     showCartItems: boolean,
-    numberProducts: number,
-    allPrice: number
+    isAuth: boolean
 }
 
 const initialState: IInitialState = {
     products: [],
     showCartItems: false,
-    numberProducts: 0,
-    allPrice: 0,
+    isAuth: false
 }
 
 const storeSlice = createSlice({
@@ -33,8 +32,6 @@ const storeSlice = createSlice({
                 state.products = [ ...changeProducts, updateProduct ]
             } else {
                 state.products.push({ ...product, count: 1 })
-                state.allPrice += product.price
-                ++state.numberProducts
             }
         },
         removeCartItem: (state: IInitialState, action) => {
@@ -45,15 +42,16 @@ const storeSlice = createSlice({
                 state.products.forEach(el => el.id === id && --el.count)
             } else {
                 state.products = products.filter(el => el.id !== productId)
-                --state.numberProducts
             }
         },
-        removeAllCartItems: (state, action) => {
+        removeAllCartItems: (state) => {
             state.products = []
-            state.numberProducts = 0
         },
         showDropdownMenu: (state) => {
             state.showCartItems = !state.showCartItems
+        },
+        setAuthUser: (state) => {
+            state.isAuth = !state.isAuth
         }
     }
 })
@@ -62,11 +60,17 @@ export const {
     addItemToCart,
     removeCartItem,
     removeAllCartItems,
-    showDropdownMenu
+    showDropdownMenu,
+    setAuthUser
 } = storeSlice.actions
 
-export const selectNumberProducts = (state: IInitialState) => state.numberProducts
+export const selectIsUserAuth = (state: IInitialState) => state.isAuth
+export const selectCartItems = (state: IInitialState) => state.products
 export const selectShowCartItems = (state: IInitialState) => state.showCartItems
-export const selectCartItem = (state: IInitialState) => state.products
+export const selectNumberProducts = (state: IInitialState) => state.products.length
+export const selectAllPrice = createSelector(
+    selectCartItems,
+    products => products.reduce((acc, product) => acc + product.count * product.price, 0)
+)
 
 export default storeSlice.reducer
