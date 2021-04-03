@@ -1,13 +1,13 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../../redux/storeSlice';
-import CustomButton from '../custom-button';
-import { ICollectionPreviewProps } from '../interfaces';
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { addItemToCart } from '@redux/storeSlice'
+import CustomButton from '../custom-button'
+import { ICollectionPreviewProps } from '../types'
 
-import './collection-item.styles.scss';
+import './collection-item.styles.scss'
 
-const CollectionItem = (item: ICollectionPreviewProps) => {
-  const { name, price, imageUrl } = item;
+const CollectionItem: React.FC<ICollectionPreviewProps> = (item) => {
+  const { name, price, imageUrl } = item
   const dispatch = useDispatch()
 
   const handleAddItemToCart = () => {
@@ -15,22 +15,20 @@ const CollectionItem = (item: ICollectionPreviewProps) => {
   }
 
   return (
-    <div className='collection-item'>
+    <div className="collection-item">
       <div
-        className='image'
+        className="image"
         style={{
-          backgroundImage: `url(${imageUrl})`
+          backgroundImage: `url(${imageUrl})`,
         }}
       />
-      <div className='collection-footer'>
-        <span className='name'>{name}</span>
-        <span className='price'>{ `${price}$` }</span>
+      <div className="collection-footer">
+        <span className="name">{name}</span>
+        <span className="price">{`${price}$`}</span>
       </div>
-      <CustomButton onClick={ handleAddItemToCart }>
-        Add to cart
-      </CustomButton>
+      <CustomButton onClick={handleAddItemToCart}>Add to cart</CustomButton>
     </div>
   )
-};
+}
 
-export default CollectionItem;
+export default CollectionItem
