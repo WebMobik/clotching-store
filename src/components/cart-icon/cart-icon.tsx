@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { createRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useClickOutside } from '@config/hooks'
 import CartDropdown from '../cart-dropdown'
@@ -12,8 +12,7 @@ import { ReactComponent as ShoppingIcon } from '@assets/shopping-bag.svg'
 import './cart-icon.styles.scss'
 
 const CartIcon: React.FC = () => {
-  const clickRef: any = useRef()
-  console.log(clickRef)
+  const clickRef = createRef()
   const dispatch = useDispatch()
   const productNumber = useSelector(selectNumberProducts)
   const isShowCartItems = useSelector(selectShowCartItems)
@@ -25,10 +24,10 @@ const CartIcon: React.FC = () => {
   useClickOutside(clickRef, isShowCartItems, toggleDropdownMenu)
 
   return (
-    <div ref={clickRef} className="shop-cart" onClick={toggleDropdownMenu}>
-      <ShoppingIcon className="cart-icon" />
+    <div className="shop-cart">
+      <ShoppingIcon className="cart-icon" onClick={toggleDropdownMenu} />
       <span className="product-number">{productNumber ?? 0}</span>
-      {isShowCartItems && <CartDropdown />}
+      {isShowCartItems && <CartDropdown ref={clickRef} />}
     </div>
   )
 }

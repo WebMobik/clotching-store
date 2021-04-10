@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef, ForwardRefExoticComponent, RefAttributes } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import {
@@ -12,7 +12,7 @@ import CustomButton from '../custom-button'
 
 import './cart-dropdown.styles.scss'
 
-const CartDropdown: React.FC = () => {
+const CartDropdown: ForwardRefExoticComponent<RefAttributes<unknown>> = forwardRef((props, ref: any) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const cartItems = useSelector(selectCartItems)
@@ -29,7 +29,7 @@ const CartDropdown: React.FC = () => {
   }
 
   return (
-    <div className="cart-dropdown">
+    <div className="cart-dropdown" ref={ref}>
       <div className="cart-all_price">
         <h3>Price:</h3>
         <span>{allPrice}$</span>
@@ -50,6 +50,6 @@ const CartDropdown: React.FC = () => {
       <CustomButton onClick={handleCheckItems}>GO TO CHECKOUT</CustomButton>
     </div>
   )
-}
+});
 
 export default CartDropdown

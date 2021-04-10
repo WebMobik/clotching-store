@@ -32,7 +32,7 @@ const persistConfig = {
 }
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState<{} | null>(null)
 
   useEffect(() => {
     const userRef = auth.onAuthStateChanged(
@@ -44,7 +44,7 @@ const App = () => {
             setCurrentUser({ id: snapShot.id, ...snapShot.data() })
           })
         }
-        setCurrentUser({ currentUser: userAuth })
+        setCurrentUser({ ...userAuth })
       }
     )
 
@@ -63,6 +63,8 @@ const App = () => {
   })
 
   const persistor = persistStore(store)
+
+  console.log('render')
 
   return (
     <Provider store={store}>
